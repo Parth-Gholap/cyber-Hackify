@@ -1,110 +1,147 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #121212;
-    color: #f5f5f5;
+  font-family: 'Arial', sans-serif;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #252525;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00cc00;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #00cc00;
+}
+
+/* Hamburger Menu Button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #00cc00;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Close Button */
+.nav-close {
+  display: none;
+  background: none;
+  border: none;
+  color: #00cc00;
+  font-size: 24px;
+  cursor: pointer;
+  width: 100%;
+  text-align: right;
+  padding: 10px;
+}
+
+/* Main Content */
+.content {
+  margin-top: 70px; /* Add space for fixed navbar */
+  padding: 20px;
+  flex: 1;
+}
+
+/* Mobile Navbar Styles */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
   }
-  
-  .about-page {
-    display: flex;
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    width: 250px;
+    background-color: #252525;
     flex-direction: column;
-    min-height: 100vh;
+    padding: 20px 0;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
   }
-  
-  .about-main {
-    flex: 1;
-    padding: 20px;
+
+  .nav-links.active {
+    left: 0;
   }
-  
-  .about-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+
+  .nav-links li {
+    margin: 15px 0;
+    padding: 0 20px;
+    width: 100%;
   }
-  
-  .back-home {
-    display: inline-block;
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #00ff7f;
-    text-decoration: none;
+
+  .nav-links a {
+    display: block;
+    padding: 10px 0;
   }
-  
-  .back-home:hover {
-    color: #66ff99;
-    text-decoration: underline;
+
+  .nav-close {
+    display: block;
   }
-  
-  .header-section h1 {
-    font-size: 28px;
-    color: #00ff7f;
-    margin-bottom: 10px;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 15px;
   }
-  
-  .header-section p {
-    font-size: 18px;
-    color: #f5f5f5;
-    margin-bottom: 20px;
+
+  .nav-logo {
+    font-size: 20px;
   }
-  
-  .info-section h2 {
-    font-size: 24px;
-    color: #00ff7f;
-    margin-top: 20px;
-    margin-bottom: 10px;
+
+  .nav-links {
+    width: 220px;
   }
-  
-  .platform-features {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .platform-features li {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #f5f5f5;
-  }
-  
-  .quiz-promo {
-    padding: 20px;
-    background-color: #1e1e1e;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .quiz-promo h3 {
-    font-size: 22px;
-    color: #00ff7f;
-    margin-bottom: 10px;
-  }
-  
-  .quiz-promo p {
-    font-size: 16px;
-    color: #f5f5f5;
-    margin-bottom: 20px;
-  }
-  
-  .start-quiz {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #00ff7f;
-    color: #121212;
-    border-radius: 8px;
-    font-size: 16px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .start-quiz:hover {
-    background-color: #66ff99;
-  }
-  
-  .about-footer {
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-    color: #f5f5f5;
-    border-top: 1px solid #00ff7f;
-  }
-  
+}
