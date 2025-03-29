@@ -14,18 +14,11 @@ import HackTheHackerComplete from './HackTheHackerComplete';
 import './App.css';
 
 function App() {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Function to toggle the mobile side navbar
-  const toggleMobileNav = () => {
-    setIsMobileNavOpen(!isMobileNavOpen);
-  };
-
-  // Close the mobile nav when clicking outside
-  const closeMobileNav = () => {
-    if (isMobileNavOpen) {
-      setIsMobileNavOpen(false);
-    }
+  // Function to toggle the dropdown menu
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -33,39 +26,29 @@ function App() {
       <div className="app">
         {/* Navbar */}
         <nav className="navbar">
-          {/* Logo */}
           <Link to="/" className="nav-logo">Hackify</Link>
 
-          {/* Hamburger Menu (visible on mobile only) */}
+          {/* Hamburger Menu (for mobile view) */}
           <button
             className="nav-toggle"
-            onClick={toggleMobileNav}
-            aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={toggleDropdown}
+            aria-label={isDropdownOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            {isMobileNavOpen ? '✕' : '☰'}
+            {isDropdownOpen ? '✕' : '☰'}
           </button>
 
-          {/* Navigation Links */}
-          <ul className={`nav-links ${isMobileNavOpen ? 'active' : ''}`}>
-            <li>
-              <button
-                className="nav-close"
-                onClick={() => setIsMobileNavOpen(false)}
-                aria-label="Close navigation menu"
-              >
-                ✕
-              </button>
-            </li>
-            <li><Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link></li>
-            <li><Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link></li>
-            <li><Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link></li>
-            <li><Link to="/about" onClick={() => setIsMobileNavOpen(false)}>About</Link></li>
-            <li><Link to="/resources" onClick={() => setIsMobileNavOpen(false)}>Resources</Link></li>
+          {/* Navigation Links (Dropdown in mobile) */}
+          <ul className={`nav-links ${isDropdownOpen ? 'dropdown' : ''}`}>
+            <li><Link to="/" onClick={() => setIsDropdownOpen(false)}>Home</Link></li>
+            <li><Link to="/challenges" onClick={() => setIsDropdownOpen(false)}>Challenges</Link></li>
+            <li><Link to="/leaderboard" onClick={() => setIsDropdownOpen(false)}>Leaderboard</Link></li>
+            <li><Link to="/about" onClick={() => setIsDropdownOpen(false)}>About</Link></li>
+            <li><Link to="/resources" onClick={() => setIsDropdownOpen(false)}>Resources</Link></li>
           </ul>
         </nav>
 
         {/* Main Content Routes */}
-        <main className="content" onClick={closeMobileNav}>
+        <main className="content" onClick={() => setIsDropdownOpen(false)}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/challenges" element={<Challenges />} />
