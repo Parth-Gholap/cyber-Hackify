@@ -1,51 +1,88 @@
-import React from "react";
-import { Link } from "react-router-dom"; // Using React Router Link for navigation
-import "./About.css"; // Importing the CSS file
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from './Home';
+import Challenges from './Challenges';
+import Leaderboard from './Leaderboard';
+import About from './About';
+import Resources from './Resources';
+import SecurityQuiz from './SecurityQuiz';
+import CyberEscapeRoom from './CyberEscapeRoom';
+import PasswordChallenge from './PasswordChallenge';
+import AttackSimulator from './AttackSimulator';
+import HackTheHacker from './HackTheHacker';
+import HackTheHackerComplete from './HackTheHackerComplete';
+import './App.css';
 
-export default function AboutPage() {
+function App() {
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  // Function to toggle the mobile side navbar
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
+
+  // Close the mobile nav when clicking outside
+  const closeMobileNav = () => {
+    if (isMobileNavOpen) {
+      setIsMobileNavOpen(false);
+    }
+  };
+
   return (
-    <div className="about-page">
-      <main className="about-main">
-        <div className="about-content">
-          <Link to="/" className="back-home">
-            &#x2190; Back to Home
-          </Link>
-          <div className="header-section">
-            <h1>About Cyber Awareness Hub</h1>
-            <p>Empowering individuals to defend against digital threats.</p>
-          </div>
-          <div className="info-section">
-            <h2>Our Mission</h2>
-            <p>
-              The goal of Cyber Awareness Hub is to educate users about the ever-evolving risks of the digital world and to equip them with the knowledge and tools to protect their personal and professional data. 
-            </p>
-            <h2>Why This Platform Exists</h2>
-            <p>
-              With the increasing sophistication of cyber threats, everyone is a potential target. From phishing emails to ransomware attacks, understanding how to identify, avoid, and respond to these threats is crucial. 
-              This platform is designed to make learning about cybersecurity engaging, informative, and actionable.
-            </p>
-            <h2>What You Can Do Here</h2>
-            <ul className="platform-features">
-              <li>Learn about common cyber threats through our resourceful guides and tips.</li>
-              <li>Test your knowledge with interactive quizzes and simulations.</li>
-              <li>Explore real-life examples of social engineering tactics and how to counter them.</li>
-              <li>Enhance your understanding of cybersecurity best practices.</li>
-            </ul>
-            <div className="quiz-promo">
-              <h3>Let’s Make the Internet Safer Together</h3>
-              <p>
-                Join our mission to create a community of digitally aware and cyber-resilient individuals. Start by exploring our resources or testing your skills through our challenges!
-              </p>
-              <Link to="/challenges" className="start-quiz">
-                Explore Challenges
-              </Link>
-            </div>
-          </div>
-        </div>
-      </main>
-      <footer className="about-footer">
-        <p>© {new Date().getFullYear()} Cyber Awareness Hub. All rights reserved.</p>
-      </footer>
-    </div>
+    <Router>
+      <div className="app">
+        {/* Navbar */}
+        <nav className="navbar">
+          {/* Logo */}
+          <Link to="/" className="nav-logo">Hackify</Link>
+
+          {/* Hamburger Menu (visible on mobile only) */}
+          <button
+            className="nav-toggle"
+            onClick={toggleMobileNav}
+            aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+          >
+            {isMobileNavOpen ? '✕' : '☰'}
+          </button>
+
+          {/* Navigation Links */}
+          <ul className={`nav-links ${isMobileNavOpen ? 'active' : ''}`}>
+            <li>
+              <button
+                className="nav-close"
+                onClick={() => setIsMobileNavOpen(false)}
+                aria-label="Close navigation menu"
+              >
+                ✕
+              </button>
+            </li>
+            <li><Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link></li>
+            <li><Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link></li>
+            <li><Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link></li>
+            <li><Link to="/about" onClick={() => setIsMobileNavOpen(false)}>About</Link></li>
+            <li><Link to="/resources" onClick={() => setIsMobileNavOpen(false)}>Resources</Link></li>
+          </ul>
+        </nav>
+
+        {/* Main Content Routes */}
+        <main className="content" onClick={closeMobileNav}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/challenges" element={<Challenges />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/games/security-quiz" element={<SecurityQuiz />} />
+            <Route path="/games/escape-room" element={<CyberEscapeRoom />} />
+            <Route path="/games/password-challenge" element={<PasswordChallenge />} />
+            <Route path="/games/attack-sim" element={<AttackSimulator />} />
+            <Route path="/games/hack-hacker" element={<HackTheHacker />} />
+            <Route path="/games/hack-hacker/complete" element={<HackTheHackerComplete />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
+
+export default App;
