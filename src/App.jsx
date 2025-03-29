@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './Home';
 import Challenges from './Challenges';
@@ -16,86 +16,31 @@ import './App.css';
 function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  // Function to toggle the mobile side navbar
   const toggleMobileNav = () => {
-    console.log("Hamburger icon clicked, toggling mobile nav:", !isMobileNavOpen);
-    setIsMobileNavOpen((prev) => {
-      const newState = !prev;
-      console.log("Setting isMobileNavOpen to:", newState);
-      return newState;
-    });
+    setIsMobileNavOpen(!isMobileNavOpen);
   };
-
-  // Debug state updates
-  useEffect(() => {
-    console.log("isMobileNavOpen updated:", isMobileNavOpen);
-  }, [isMobileNavOpen]);
-
-  // Debug component mount and viewport width
-  useEffect(() => {
-    console.log("App component mounted or re-rendered");
-    console.log("Viewport width:", window.innerWidth);
-  }, []);
-
-  // Debug nav-links styles
-  useEffect(() => {
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks) {
-      console.log("nav-links element found");
-      const styles = window.getComputedStyle(navLinks);
-      console.log("nav-links display:", styles.display);
-      console.log("nav-links left:", styles.left);
-      console.log("nav-links z-index:", styles.zIndex);
-      console.log("nav-links background-color:", styles.backgroundColor);
-    } else {
-      console.log("nav-links element NOT found");
-    }
-  }, [isMobileNavOpen]);
-
-  // Debug nav-links class
-  const navLinksClass = `nav-links ${isMobileNavOpen ? 'active' : ''}`;
-  console.log("Nav links class:", navLinksClass);
 
   return (
     <Router>
       <div className="app">
-        {/* Navbar */}
         <nav className="navbar">
-          {/* Logo */}
           <Link to="/" className="nav-logo">Hackify</Link>
-
-          {/* Hamburger Menu (visible on mobile only) */}
-          <button
-            className="nav-toggle"
-            onClick={() => {
-              console.log("Button clicked directly");
-              toggleMobileNav();
-            }}
-            aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
-          >
+          
+          <button className="nav-toggle" onClick={toggleMobileNav}>
             {isMobileNavOpen ? '✕' : '☰'}
           </button>
-
-          {/* Navigation Links */}
-          <ul className={navLinksClass} onClick={() => console.log("Current nav-links class:", navLinksClass)}>
-            <li>
-              <button
-                className="nav-close"
-                onClick={() => setIsMobileNavOpen(false)}
-                aria-label="Close navigation menu"
-              >
-                ✕
-              </button>
-            </li>
-            <li><Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link></li>
-            <li><Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link></li>
-            <li><Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link></li>
-            <li><Link to="/about" onClick={() => setIsMobileNavOpen(false)}>About</Link></li>
-            <li><Link to="/resources" onClick={() => setIsMobileNavOpen(false)}>Resources</Link></li>
-          </ul>
+          
+          <div className={`nav-menu ${isMobileNavOpen ? 'open' : ''}`}>
+            <div className="nav-links">
+              <Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link>
+              <Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link>
+              <Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link>
+              <Link to="/about" onClick={() => setIsMobileNavOpen(false)}>About</Link>
+              <Link to="/resources" onClick={() => setIsMobileNavOpen(false)}>Resources</Link>
+            </div>
+          </div>
         </nav>
 
-        {/* Main Content Routes */}
         <main className="content">
           <Routes>
             <Route path="/" element={<Home />} />
