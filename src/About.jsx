@@ -16,56 +16,32 @@ import './App.css';
 function App() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  // Function to toggle the mobile side navbar
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
-  };
-
-  // Close the mobile nav when clicking outside
-  const closeMobileNav = () => {
-    if (isMobileNavOpen) {
-      setIsMobileNavOpen(false);
-    }
   };
 
   return (
     <Router>
       <div className="app">
-        {/* Navbar */}
         <nav className="navbar">
-          {/* Logo */}
           <Link to="/" className="nav-logo">Hackify</Link>
-
-          {/* Hamburger Menu (visible on mobile only) */}
-          <button
-            className="nav-toggle"
-            onClick={toggleMobileNav}
-            aria-label={isMobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
-          >
+          
+          <button className="nav-toggle" onClick={toggleMobileNav}>
             {isMobileNavOpen ? '✕' : '☰'}
           </button>
-
-          {/* Navigation Links */}
-          <ul className={`nav-links ${isMobileNavOpen ? 'active' : ''}`}>
-            <li>
-              <button
-                className="nav-close"
-                onClick={() => setIsMobileNavOpen(false)}
-                aria-label="Close navigation menu"
-              >
-                ✕
-              </button>
-            </li>
-            <li><Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link></li>
-            <li><Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link></li>
-            <li><Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link></li>
-            <li><Link to="/about" onClick={() => setIsMobileNavOpen(false)}>About</Link></li>
-            <li><Link to="/resources" onClick={() => setIsMobileNavOpen(false)}>Resources</Link></li>
-          </ul>
+          
+          <div className={`nav-menu ${isMobileNavOpen ? 'open' : ''}`}>
+            <div className="nav-links">
+              <Link to="/" onClick={() => setIsMobileNavOpen(false)}>Home</Link>
+              <Link to="/challenges" onClick={() => setIsMobileNavOpen(false)}>Challenges</Link>
+              <Link to="/leaderboard" onClick={() => setIsMobileNavOpen(false)}>Leaderboard</Link>
+              <Link to="/about" onClick={() => setIsMobileNavOpen(false)}>About</Link>
+              <Link to="/resources" onClick={() => setIsMobileNavOpen(false)}>Resources</Link>
+            </div>
+          </div>
         </nav>
 
-        {/* Main Content Routes */}
-        <main className="content" onClick={closeMobileNav}>
+        <main className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/challenges" element={<Challenges />} />
